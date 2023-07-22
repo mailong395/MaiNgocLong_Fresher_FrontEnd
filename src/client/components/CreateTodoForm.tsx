@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useState } from 'react'
 
 import { api } from '@/utils/client/api'
@@ -35,6 +36,16 @@ export const CreateTodoForm = () => {
       },
     })
 
+  // Function Press Enter
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === 'Enter') {
+      createTodo({
+        body: todoBody,
+      })
+      setTodoBody('')
+    }
+  }
+
   return (
     <form className="group flex items-center justify-between rounded-12 border border-gray-200 py-2 pr-4 focus-within:border-gray-400">
       <label htmlFor={TODO_INPUT_ID} className="sr-only">
@@ -49,10 +60,12 @@ export const CreateTodoForm = () => {
         onChange={(e) => {
           setTodoBody(e.target.value)
         }}
+        onKeyDown={handleKeyDown}
         className="flex-1 px-4 text-base placeholder:text-gray-400 focus:outline-none"
       />
 
       <button
+        className="rounded-full bg-gray-700 pb-2 pl-5 pr-5 pt-2 text-center text-sm font-bold not-italic leading-5 text-white hover:bg-gray-500"
         type="button"
         disabled={isCreatingTodo}
         onClick={() => {

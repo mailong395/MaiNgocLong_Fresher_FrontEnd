@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+import * as Tabs from '@radix-ui/react-tabs'
+
 import { CreateTodoForm } from '@/client/components/CreateTodoForm'
 import { TodoList } from '@/client/components/TodoList'
 
@@ -25,7 +28,37 @@ const Index = () => {
         </h1>
 
         <div className="pt-10">
-          <TodoList />
+          <Tabs.Root className="TabsRoot" defaultValue="tab1">
+            <Tabs.List className="" aria-label="Manage your account">
+              <Tabs.Trigger
+                className="rounded-full border-2 border-gray-200 px-6 py-3 text-center text-sm font-bold not-italic leading-5 hover:bg-gray-500 data-[state=active]:border-0 data-[state=active]:bg-gray-700 data-[state=active]:text-white"
+                value="tab1"
+              >
+                All
+              </Tabs.Trigger>
+              <Tabs.Trigger
+                className="border-1 mx-2 rounded-full border-2 border-gray-200 px-6 py-3 text-center text-sm font-bold not-italic leading-5 hover:bg-gray-500 data-[state=active]:border-0 data-[state=active]:bg-gray-700 data-[state=active]:text-white"
+                value="tab2"
+              >
+                Pending
+              </Tabs.Trigger>
+              <Tabs.Trigger
+                className="border-1 rounded-full border-2 border-gray-200 px-6 py-3 text-center text-sm font-bold not-italic leading-5 hover:bg-gray-500 data-[state=active]:border-0 data-[state=active]:bg-gray-700 data-[state=active]:text-white"
+                value="tab3"
+              >
+                Completed
+              </Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content className="pt-10" value="tab1">
+              <TodoList param={''} />
+            </Tabs.Content>
+            <Tabs.Content className="pt-10" value="tab2">
+              <TodoList param={'pending'} />
+            </Tabs.Content>
+            <Tabs.Content className="pt-10" value="tab3">
+              <TodoList param={'completed'} />
+            </Tabs.Content>
+          </Tabs.Root>
         </div>
 
         <div className="pt-10">
