@@ -84,10 +84,7 @@ export const TodoList = ({ param = '' }) => {
     },
   })
 
-  const handleChangeChk = (
-    value = '',
-    todo: { status: 'completed' | 'pending'; id: number; body: string }
-  ) => {
+  const handleChangeChk = (value: boolean, todo: { id: number }) => {
     updateTodo({
       todoId: todo.id,
       status: value ? 'completed' : 'pending',
@@ -112,32 +109,32 @@ export const TodoList = ({ param = '' }) => {
         .filter((element) => element.status.includes(param))
         .sort((a, b) => a.id - b.id)
         .map((todo) => (
-        <li key={todo.id}>
-          <div className="flex items-center rounded-12 border border-gray-200 px-4 py-3 shadow-sm">
-            <Checkbox.Root
-              id={String(todo.id)}
-              className="flex h-6 w-6 items-center justify-center rounded-6 border border-gray-300 focus:border-gray-700 focus:outline-none data-[state=checked]:border-gray-700 data-[state=checked]:bg-gray-700"
-              onCheckedChange={(value) => handleChangeChk(value + '', todo)}
-              checked={todo.status === 'completed' ? true : false}
-            >
-              <Checkbox.Indicator>
-                <CheckIcon className="h-4 w-4 text-white" />
-              </Checkbox.Indicator>
-            </Checkbox.Root>
+          <li key={todo.id}>
+            <div className="flex items-center rounded-12 border border-gray-200 px-4 py-3 shadow-sm">
+              <Checkbox.Root
+                id={String(todo.id)}
+                className="flex h-6 w-6 items-center justify-center rounded-6 border border-gray-300 focus:border-gray-700 focus:outline-none data-[state=checked]:border-gray-700 data-[state=checked]:bg-gray-700"
+                onCheckedChange={(value) => handleChangeChk(Boolean(value), todo)}
+                checked={todo.status === 'completed' ? true : false}
+              >
+                <Checkbox.Indicator>
+                  <CheckIcon className="h-4 w-4 text-white" />
+                </Checkbox.Indicator>
+              </Checkbox.Root>
 
-            <label 
-              className={styles(todo.status === 'completed')}
-              htmlFor={String(todo.id)}
-            >
-              {todo.body}
-            </label>
+              <label
+                className={styles(todo.status === 'completed')}
+                htmlFor={String(todo.id)}
+              >
+                {todo.body}
+              </label>
 
-            <button onClick={() => handleClickRemove(todo.id)}>
-              <XMarkIcon className="h-6 w-6" />
-            </button>
-          </div>
-        </li>
-      ))}
+              <button onClick={() => handleClickRemove(todo.id)}>
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+          </li>
+        ))}
     </ul>
   )
 }
